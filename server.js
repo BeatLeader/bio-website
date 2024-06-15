@@ -13,7 +13,6 @@ app.get('/', async (req, res) => {
 
     try {
         const response = await fetch(`https://cdn.assets.beatleader.xyz/player-${player}-richbio-${parseInt(timeset)}.html`);
-        console.log(response);
         if (!response.ok) {
             throw new Error('Failed to fetch bio file');
         }
@@ -36,7 +35,7 @@ app.get('/', async (req, res) => {
                     </style>
                     <script>
                         function sendHeight() {
-                            var height = document.body.clientHeight;
+                            var height = document.body.offsetHeight;
                             window.parent.postMessage({
                                 'frameHeight': height
                             }, '*');
