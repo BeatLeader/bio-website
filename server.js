@@ -19,33 +19,40 @@ app.get('/', async (req, res) => {
         const richBio = await response.text();
 
         const htmlContent = `
-            <html>
+            <!DOCTYPE html>
+            <html data-overlayscrollbars-initialize>
                 <head>
                     <style>
                         html {
-                            overflow-x: hidden;
-                            overflow-y: auto;
-                            -ms-overflow-style: none;
-                            scrollbar-width: none;
                             width: ${width}px;
                         }
-                        html::-webkit-scrollbar {
-                            display: none;
+                        .os-theme-dark {
+                            --os-handle-bg: rgb(183 183 183 / 44%) !important;
+                            --os-handle-bg-hover: rgba(0,0,0,.55);
+                            --os-handle-bg-active: rgba(0,0,0,.66);
                         }
                     </style>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/2.3.0/styles/overlayscrollbars.min.css" integrity="sha512-MMVRaRR0pB97w1tzt6+29McVwX+YsQcSlIehGCGqFsC+KisK3d2F/xRxFaGMN7126EeC3A6iYRhdkr5nY8fz3Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+                    
+                </head>
+                <body data-overlayscrollbars-initialize>
+                    ${richBio}
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/2.3.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha512-tu2VesH7qQi/IX4MN47Zw0SCia4hgBgu4xY/fP/gV2XcqdZsIh1B5wbSy4Mk5AhkkfTj/XMDQt86wzsZIsxPSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     <script>
                         function sendHeight() {
-                            var height = document.body.offsetHeight;
+                            var height = document.body?.offsetHeight;
                             window.parent.postMessage({
                                 'frameHeight': height
                             }, '*');
                         }
                         
-                        window.onload = sendHeight;  // Send initial height
-                        window.onresize = sendHeight;  // Update height on resize
+                        window.onload = sendHeight;
+                        window.onresize = sendHeight;
+                        document.onreadystatechange = sendHeight;
+
+                        const scrollbars = OverlayScrollbarsGlobal.OverlayScrollbars(document.body, {overflow: {x: "hidden"}, scrollbars: { theme: 'os-theme-dark', autoHide: "scroll", dragScroll: true }});
                     </script>
-                </head>
-                ${richBio}
+                </body>
             </html>`;
 
         res.send(htmlContent);
