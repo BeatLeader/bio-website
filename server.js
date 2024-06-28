@@ -47,7 +47,7 @@ app.get('/', async (req, res) => {
                             box-shadow: inset 0 0 7px 0px #00000029;
                             background-color: #0000000f;
                         }
-                        body.ree-dark {
+                        body.ree-dark-theme {
                             background: #121212;
                         }
                         
