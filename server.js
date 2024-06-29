@@ -43,12 +43,17 @@ app.get('/', async (req, res) => {
                             background-color: #3d3d3d;
                         }
                         body.mirror-theme {
-                            backdrop-filter: blur(10px);
                             box-shadow: inset 0 0 7px 0px #00000029;
-                            background-color: #0000000f;
+                            background-color: rgba(0, 0, 0, 0.2);
+                        }
+                        body.mirror-low-theme {
+                            background-color: rgba(0, 0, 0, 0.2);
                         }
                         body.ree-dark-theme {
                             background: #121212;
+                        }
+                        body.flylight-theme {
+                            background-color: rgba(0, 0, 0, 0.1);
                         }
                         
                     </style>
